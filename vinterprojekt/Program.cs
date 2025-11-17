@@ -24,7 +24,23 @@ string print (string print)
 }
 
 //Här är introt till spelet.
-
+print("1. Start the game?");
+print("2. Dont start?");
+string start = Console.ReadLine();
+if (start != "1" && start != "2")
+{
+    print("ill take that as a yes..");
+    Thread.Sleep(500);
+}
+while(start == "2")
+{
+    print("Are you sure?");
+    print("Start the game?");
+    print("Dont start?");
+    start = Console.ReadLine();
+    
+}
+Console.Clear();
 print("You're walking to work on a monday morning when suddenly a wierd circle appears underneath your feet.");
 Thread.Sleep(500);
 print("You're falling through the air at high speeds, the ground a few hundred meters below.");

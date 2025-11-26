@@ -12,14 +12,14 @@
 using System.Text.RegularExpressions;
 
 
-
+int Sleep = 75;
 string print (string print)
 {
-    int Sleep = 75;
+
     for (int i = 0; i <print.Length; i++)
     {
         Console.Write(print[i]);
-        Thread.Sleep(Sleep);     
+        Thread.Sleep(Sleep);
         if (Console.KeyAvailable)
         {
              if (Console.ReadKey(true).Key == ConsoleKey.Spacebar)
@@ -234,17 +234,23 @@ if (pathchoice0 == "2")
                 Console.Write(playername); print($" {Playerhealth}");
             }
         }
-
-        
-
     }
+
     if (giantfrogchoice1 == "2")
     {
         Console.Write("You:"); print("gulp* RUN!!!!!!!!!!!!");
         print("You run away from the frog");
     }
 }
+if (pathchoice0 == "1")
+{
+    print("You start walking along with the man travelling for a few hours.");
+    print("A city starts to appear in the distance");
+    Console.Write("Mysterious man: ");print("This is the city of galmingdor");
+    Console.Write("You: ");print("WoW..." );
+    Console.Write("You: ");print("How long till we get there?");
 
+}
 
 
 

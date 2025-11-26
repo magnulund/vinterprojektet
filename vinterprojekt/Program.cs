@@ -114,17 +114,13 @@ bool listan(string str)
     }
     return true;
 }
-
-
-
-
 //kollar om namnet är en viss längd och om det inte har några konstiga täcken.
-while (playername.Length< 4 || playername.Length> 16 || contains == true || !listan(playername))
+while (playername.Length< 3 || playername.Length> 20 || contains == true || !listan(playername))
 {
-    if (playername.Length< 4 || playername.Length> 16)
+    if (playername.Length< 3 || playername.Length> 20)
     {
         Console.Clear();
-        print("The name has to be between 4 and 16 letters!"); 
+        print("The name has to be between 3 and 20 letters!"); 
         playername = Console.ReadLine();
     }
     if (contains == true || listan(playername) == false)
@@ -159,10 +155,8 @@ else if (homeplace == "2")
     Console.Write("You:");print(" i dont know.");
     Console.Write("Mysterious man:");print(" How strange... well would you like to follow me back to my home?");
 }
-
-List<int> playerdamage = [9, 12];
 int Playerhealth = 75;
-if (playername.Length >= 12)
+if (playername.Length >= 14)
 {
     Playerhealth = 100;
 }
@@ -170,16 +164,6 @@ if (playername.Length <= 6)
 {
     Playerhealth = 50;
 }
-
-
-
-Dictionary<string, int> frogmoves = new Dictionary<string, int>
-{
-    ["Lick"] = Random.Shared.Next(5, 7),
-    ["Groundslam"] = Random.Shared.Next(10, 13),
-    ["Swallow"] = Random.Shared.Next(15, 18)
-
-};
 print("1. Go home with the kind man?");
 print("2. Walk along a different road and try to find your own way");
 string pathchoice0 = Console.ReadLine();
@@ -205,29 +189,64 @@ if (pathchoice0 == "2")
         Console.Write("Frog: "); print("ribbit*");
         Console.Write("Frog");print($" {Giantfroghealth}");
         Console.Write(playername); print($" {Playerhealth}");
-        int giantfrogdamage = Random.Shared.Next(5, 10);
-        while (Playerhealth > 0 && Giantfroghealth > 0)
+        while (Playerhealth >= 0 && Giantfroghealth >= 0)
         {
+            Dictionary<string, int> frogmoves = new ()
+            {
+                ["Lick"] = Random.Shared.Next(5, 7),
+                ["Groundslam"] = Random.Shared.Next(10, 13),
+                ["Swallow"] = Random.Shared.Next(15, 18)
+            };
+            Dictionary<string, int> playermoves = new()
+            {
+                ["Punch"] = Random.Shared.Next(9, 12),
+                ["Kick"] = Random.Shared.Next(15, 18)
+            };
+
             string attackchoice = "0";
             while (attackchoice != "1" && attackchoice != "2")
             {
-                print("What attck do u use?");
+                print("What attack do u use?");
                 print("1. Punch [9-12]");
                 print("2. Kick [12-15]");
                 attackchoice = Console.ReadLine();
             }
-            if (attackchoice == "1")
+            int.TryParse(attackchoice, out int playerattackint); 
+            KeyValuePair<string, int> playerattack = playermoves.ElementAt(playerattackint);
+            if (attackchoice == "1" || attackchoice == "2")
             {
-                print("You use punch");
-                int damage = Random.Shared.Next(playerdamage[0], playerdamage[1]);
-                print($"You deal {damage} damage to the frog");
-                Console.Write("Frog");print ($" {Giantfroghealth -= damage}");
-                Console.Write("Frog");print($"Frog uses {frogmoves}");
+                Console.Clear();
+                print($"You use {playerattack.Key}");
+                print($"You deal {playerattack.Value} damage to the frog");
+                Console.Write("Frog");print ($" {Giantfroghealth -= playerattack.Value}");
+                if (Giantfroghealth <= 0)
+                {
+                    break;
+                }
+                KeyValuePair<string, int> frogattack = frogmoves.ElementAt(Random.Shared.Next(0, frogmoves.Count));
+
+                Console.Write("Frog");print($" uses {frogattack.Key}");
+                print($"You take {frogattack.Value} damage");
+
+                Playerhealth -= frogattack.Value;
+
+                Console.Write("Frog");print($" {Giantfroghealth}");
+                Console.Write(playername); print($" {Playerhealth}");
             }
         }
 
+        
+
+    }
+    if (giantfrogchoice1 == "2")
+    {
+        Console.Write("You:"); print("gulp* RUN!!!!!!!!!!!!");
+        print("You run away from the frog");
     }
 }
+
+
+
 
 string pathchoice1 = Console.ReadLine();
 while (pathchoice1 != "1" && pathchoice1 != "2")

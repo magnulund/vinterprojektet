@@ -20,6 +20,7 @@ string print (string print)
     {
         Console.Write(print[i]);
         Thread.Sleep(Sleep);
+        
         if (Console.KeyAvailable)
         {
              if (Console.ReadKey(true).Key == ConsoleKey.Spacebar)
@@ -29,6 +30,7 @@ string print (string print)
         }
     }
     Console.WriteLine("");
+    Sleep = 75;
     return print;
 }
 
@@ -203,36 +205,72 @@ if (pathchoice0 == "2")
                 ["Kick"] = Random.Shared.Next(15, 18)
             };
 
+            List<int> playerhitchances = [25, 50];
+
+            List<int> Froghitchances =  [25, 50, 65];
+
             string attackchoice = "0";
             while (attackchoice != "1" && attackchoice != "2")
             {
                 print("What attack do u use?");
                 print("1. Punch [9-12]");
-                print("2. Kick [12-15]");
+                print("2. Kick [15-18]");
                 attackchoice = Console.ReadLine();
             }
             int.TryParse(attackchoice, out int playerattackint); 
-            KeyValuePair<string, int> playerattack = playermoves.ElementAt(playerattackint);
+            KeyValuePair<string, int> playerattack = playermoves.ElementAt(playerattackint-1);
             if (attackchoice == "1" || attackchoice == "2")
             {
                 Console.Clear();
-                print($"You use {playerattack.Key}");
+                print($"You use {playerattack.Key }");
+
+                int playerhitchance = Random.Shared.Next(1, 10000)/100;
+
+                if (playerhitchance >= playerhitchances[playerattackint-1])
+                {
                 print($"You deal {playerattack.Value} damage to the frog");
                 Console.Write("Frog");print ($" {Giantfroghealth -= playerattack.Value}");
+                }
+                else if (playerhitchance < playerhitchances[playerattackint-1])
+                {
+                    print("You missed");
+                }
                 if (Giantfroghealth <= 0)
                 {
+                    
                     break;
                 }
-                KeyValuePair<string, int> frogattack = frogmoves.ElementAt(Random.Shared.Next(0, frogmoves.Count));
+
+                int r = Random.Shared.Next(0, frogmoves.Count);
+
+                KeyValuePair<string, int> frogattack = frogmoves.ElementAt(r);
 
                 Console.Write("Frog");print($" uses {frogattack.Key}");
-                print($"You take {frogattack.Value} damage");
+                int froghitchance = Random.Shared.Next(1, 10000)/100;
 
-                Playerhealth -= frogattack.Value;
+                if(froghitchance >= Froghitchances[r])
+                {
+                    print($"You take {frogattack.Value} damage");
+                    Playerhealth -= frogattack.Value;
+                }
+                
+                else if(froghitchance < Froghitchances[r])
+                {
+                    print("The frog misses");
+                }
+                
 
                 Console.Write("Frog");print($" {Giantfroghealth}");
                 Console.Write(playername); print($" {Playerhealth}");
             }
+        }
+        if (Playerhealth <= 0)
+        {
+            print("You died...");
+        }
+        if (Giantfroghealth <= 0)
+        {
+            print("You won your first fight YAY!!!");
         }
     }
 
@@ -241,6 +279,7 @@ if (pathchoice0 == "2")
         Console.Write("You:"); print("gulp* RUN!!!!!!!!!!!!");
         print("You run away from the frog");
     }
+
 }
 if (pathchoice0 == "1")
 {

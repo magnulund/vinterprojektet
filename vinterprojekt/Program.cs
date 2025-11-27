@@ -64,7 +64,7 @@ Thread.Sleep(500);
 print("You're falling through the air at high speeds, the ground a few hundred meters below.");
 Thread.Sleep(500);
 print("Just a few meters above the ground now and BOOM!");
-Thread.Sleep(1500);
+Thread.Sleep(750);
 print("a few hours later: You wake up no scratch to be found, but you remeber falling hundreds of meters...");
 Thread.Sleep(500);
 print("You wonder how you could have no scratches on your body as you hear a voice speaking to you from behind");
@@ -99,7 +99,8 @@ else if (choice1 == "2")
 Console.Write("Mysterious man:");print(" What is your name sir?");
 //namnet som spelaren måste välja.
 string playername;
-Console.Write("You:");print(" My name is ");  playername = Console.ReadLine();
+Console.Write("You:");print(" My name is ");  
+playername = Console.ReadLine();
 
 //fick hjälp med denna bit{ 
 var contains = Regex.IsMatch(playername, @"[^\w]");
@@ -272,6 +273,12 @@ if (pathchoice0 == "2")
         {
             print("You won your first fight YAY!!!");
         }
+        print("You keep walking down the road for a couple hours");
+        print("Just up ahead there is a plain hill with no trees around it.");
+        print("You go to it and on the hill you see a city far away in the distance.");
+        print("A few hours later...");
+        print("The city is now towering before you and a gate seems to appear further along the walls");
+
     }
 
     if (giantfrogchoice1 == "2")
@@ -288,6 +295,11 @@ if (pathchoice0 == "1")
     Console.Write("Mysterious man: ");print("This is the city of galmingdor");
     Console.Write("You: ");print("WoW..." );
     Console.Write("You: ");print("How long till we get there?");
+    Console.Write("Mysterious man: ");print("About an hour");
+    print("As you start to walk again the ground shakes and a roar is heard in the distance");
+    Console.Write("You: ");  print("What was that!??!?!");
+    Console.Write("Mysterious Man: ");print("That was an underground dragon... ");
+    Console.Write("Mysterious Man: ");print("It should be fine though as i have never heard of an underground dragon going to the surface");
 
 }
 

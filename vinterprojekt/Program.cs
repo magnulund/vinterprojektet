@@ -63,6 +63,7 @@ while (true)
     
     }
     Console.Clear();
+    Sleep = 2000;
     print("You're walking to work on a monday morning when suddenly a wierd circle appears underneath your feet.");
     Thread.Sleep(500);
     print("You're falling through the air at high speeds, the ground a few hundred meters below.");
@@ -207,8 +208,8 @@ while (true)
             };
             Dictionary<string, int> playermoves = new()
             {
-                ["Punch"] = Random.Shared.Next(9, 12),
-                ["Kick"] = Random.Shared.Next(15, 18)
+                ["Punch"] = Random.Shared.Next(9, 13),
+                ["Kick"] = Random.Shared.Next(15, 19)
             };
 
             List<int> playerhitchances = [25, 50];
@@ -231,7 +232,7 @@ while (true)
                 Console.Clear();
                 print($"You use {playerattack.Key }");
 
-                int playerhitchance = Random.Shared.Next(1, 10000)/100;
+                int playerhitchance = Random.Shared.Next(0, 10001)/100;
 
                 if (playerhitchance >= playerhitchances[playerattackint-1])
                 {
@@ -254,7 +255,7 @@ while (true)
 
                 Console.Write("Frog");print($" uses {frogattack.Key}");
                 
-                int froghitchance = Random.Shared.Next(1, 10000)/100;
+                int froghitchance = Random.Shared.Next(0, 10001)/100;
 
                 if(froghitchance >= Froghitchances[r])
                 {
@@ -314,7 +315,7 @@ while (true)
         string purpose = Console.ReadLine();
         while(purpose != "1" && purpose != "2" && purpose != "3")
         {
-            
+            Console.WriteLine("");
             print("1. My purpose here is to destroy the place muahhahahah");
             print("2. My purpose here is to gather information about this world");
             print("3. I do not yet know my purpose here but i am sure i will find out");
@@ -331,9 +332,9 @@ while (true)
             {
                 Dictionary<string, int> playermoves = new()
                 {
-                    ["Punch"] = Random.Shared.Next(9, 12),
-                    ["Kick"] = Random.Shared.Next(15, 18),
-                    ["Tackle"] = Random.Shared.Next(20, 24)
+                    ["Punch"] = Random.Shared.Next(9, 13),
+                    ["Kick"] = Random.Shared.Next(15, 19),
+                    ["Tackle"] = Random.Shared.Next(20, 25)
                 };
                 Dictionary<string, int> guardmoves = new()
                 {
@@ -363,7 +364,8 @@ while (true)
                     Console.Clear();
                     print($"You use {playerattack.Key}");
 
-                    int playerhitchance = Random.Shared.Next(1, 10000)/100;
+                    int playerhitchance = Random.Shared.Next(0, 10001)/100;
+
 
                     if (playerhitchance >= playerhitchances[playerattackint-1])
                     {
@@ -384,7 +386,7 @@ while (true)
                     KeyValuePair<string, int> guardattack = guardmoves.ElementAt(r);
                     Console.Write("Guard");print($" uses {guardattack.Key}");
                 
-                    int guardhitchance = Random.Shared.Next(1, 10000)/100;
+                    int guardhitchance = Random.Shared.Next(0, 10001)/100;
 
                     if(guardhitchance >= guardhitchances[r])
                     {
@@ -473,6 +475,22 @@ while (true)
                     }
                 } 
             } 
+            if (purpose == "2")
+            {
+                Console.Write("You: "); print("My purpose here is to gather information about the world"); 
+                Console.Write("Guard: ");print("Well that seems like a good thing to do atleast you arent here to destroy the place hah");
+                Console.Write("You: ");print("Who would ever even think of doing something like that hahah");
+                Console.Write("Guard: ");print("Yeah, i mean it happened once before when a great mage came here and tried to destroy the place");
+                Console.Write("Guard: ");print("Well here is your pass anyway now go find your information");
+                Console.Write("You: ");print("Thanks ill get going than");
+            }
+            if (purpose == "3")
+            {
+                Console.Write("You: ");print("I do not yet know what my purpose is here but i am hoping to find out");
+                Console.Write("Guard: ");print("Well sounds suspicious but ill give you the pass anyway");
+                Console.Write("You: ");print("I thank thy humble guard for this oppurtunity");
+                Console.Write("Guard: ");print("Move along now");
+            }
         }
 
     }
@@ -500,15 +518,70 @@ while (true)
         print("You keep walking and arrive in the city a little while later");
         print("At the city gate the man speaks with the guard and than calls to you");
         Console.Write("Mysterious Man: ");print("Come here! we can get through now and ill show you the city");
+        Console.Write("???: "); print("hey Ingur come here i need help with something");
+        Console.Write("Ingur: ");print($"Well i have to go {playername} see you later, sorry i couldn't show you around");
 
     }
 
-
+    print("There are 3 streets leading in different directions: left, right, forward");
+    print("1. Left");
+    print("2. Right");
+    print("3. Forward");
     string pathchoice1 = Console.ReadLine();
-    while (pathchoice1 != "1" && pathchoice1 != "2")
+    while (pathchoice1 != "1" && pathchoice1 != "2" && pathchoice1 != "3")
     {
+        print("1. Left");
+        print("2. Right");
+        print("3. Forward");
         pathchoice1 = Console.ReadLine();
     } 
+    if(pathchoice1 == "1")
+    {
+        print("You start walking left passing some houses and vendors");
+        print("One of the vendors catches your eye");
+        print("Do you go to him or keep going past him");
+        print("1. Go to the vendor");
+        print("2. Keep walking");
+        string vendor = Console.ReadLine();
+        while(vendor != "1" && vendor != "2")
+        {
+            print("1. Go to the vendor");
+            print("2. Keep walking");
+            vendor = Console.ReadLine();
+        }
+        if(vendor == "1")
+        {
+            Dictionary<string, int> shop = new()
+            {
+              ["Iron sword"] = 20,
+              ["Shield"] = 15,
+              ["Mysterious box"] = 2  
+            };
+            int playercoins = 25;
+            // KeyValuePair<string, int> shopping = shop.ElementAt(1);
+            foreach (KeyValuePair<string,int> shopping in shop)
+            {
+                Console.Write($"{shopping.Key}, {shopping.Value}");
+            }
+          
+            print("You walk forward toward the vendor and look at the goods");
+            Console.Write("Vendor: ");print("Hello there sir what would you like to buy");
+            print("Stock:");
+            print("1. Iron sword [20 coins]");
+            print("2. Shield [15 coins]");
+            print("3. Mysterious box [2 coins]");
+            string buy = Console.ReadLine();
+            while (buy != "1" && buy != "2" && buy != "3")
+            {
+                print("Stock:");
+                print("1. Iron sword [20 coins]");
+                print("2. Shield [15 coins]");
+                print("3. Mysterious box [2 coins]");
+                buy = Console.ReadLine();
+            }
+
+        }
+    }
 
     string pathchoice2 = Console.ReadLine();
     while (pathchoice2 != "1" && pathchoice2 != "2")

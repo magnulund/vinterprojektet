@@ -10,6 +10,7 @@
 
 
 using System.ComponentModel;
+using System.IO.Pipes;
 using System.Text.RegularExpressions;
 
 
@@ -39,6 +40,7 @@ string restart = "";
 
 while (true)
 { 
+
     Console.WriteLine("To skip dialogues press spacebar:");
     Thread.Sleep(500);
     print("1. Start the game?");
@@ -63,7 +65,7 @@ while (true)
     
     }
     Console.Clear();
-    Sleep = 2000;
+
     print("You're walking to work on a monday morning when suddenly a wierd circle appears underneath your feet.");
     Thread.Sleep(500);
     print("You're falling through the air at high speeds, the ground a few hundred meters below.");
@@ -558,28 +560,43 @@ while (true)
               ["Mysterious box"] = 2  
             };
             int playercoins = 25;
-            // KeyValuePair<string, int> shopping = shop.ElementAt(1);
-            foreach (KeyValuePair<string,int> shopping in shop)
-            {
-                Console.Write($"{shopping.Key}, {shopping.Value}");
-            }
-          
-            print("You walk forward toward the vendor and look at the goods");
             Console.Write("Vendor: ");print("Hello there sir what would you like to buy");
             print("Stock:");
-            print("1. Iron sword [20 coins]");
-            print("2. Shield [15 coins]");
-            print("3. Mysterious box [2 coins]");
+            for (int i = 0; i<shop.Count; i++)
+            {
+                KeyValuePair<string, int> shopping = shop.ElementAt(i);
+                print($"{i+ 1}. {shopping.Key}, [{shopping.Value} coins]");    
+
+            }
             string buy = Console.ReadLine();
             while (buy != "1" && buy != "2" && buy != "3")
             {
                 print("Stock:");
-                print("1. Iron sword [20 coins]");
-                print("2. Shield [15 coins]");
-                print("3. Mysterious box [2 coins]");
+                for (int i = 0; i<shop.Count; i++)
+                {
+                    KeyValuePair<string, int> shopping = shop.ElementAt(i);
+                    print($"{i+ 1}. {shopping.Key}, [{shopping.Value} coins]");    
+
+                }
                 buy = Console.ReadLine();
             }
+            int.TryParse(buy, out int buyint);
 
+            KeyValuePair<string, int> shopprice = shop.ElementAt(buyint);
+            if(buy == "1"|| buy == "2"|| buy == "3" && playercoins >= shopprice.Value)
+            {
+                Console.Write("Vendor: ");print($"Ah, you want the {shopprice.Key} ");
+                Console.Write("You: ");print("Yes i do");
+                print($"You hand the man {shopprice.Value} coins");
+                playercoins -= shopprice.Value;
+                print($"You now have {playercoins} coins left");
+            }
+
+
+        }
+        if (vendor == "2")
+        {
+            
         }
     }
 
@@ -599,36 +616,6 @@ while (true)
     while (pathchoice4 != "1" && pathchoice4 != "2")
     {
         pathchoice4 = Console.ReadLine();
-    }
-
-    string pathchoice5 = Console.ReadLine();
-    while (pathchoice5 != "1" && pathchoice5 != "2")
-    {
-        pathchoice5 = Console.ReadLine();
-    }
-
-    string pathchoice6 = Console.ReadLine();
-    while (pathchoice6 != "1" && pathchoice6 != "2")
-    {
-        pathchoice6 = Console.ReadLine();
-    }
-
-    string pathchoice7 = Console.ReadLine();
-    while (pathchoice7 != "1" && pathchoice7 != "2")
-    {
-        pathchoice7 = Console.ReadLine();
-    }
-
-    string pathchoice8 = Console.ReadLine();
-    while (pathchoice8 != "1" && pathchoice8 != "2")
-    {
-        pathchoice8 = Console.ReadLine();
-    }
-
-    string pathchoice9 = Console.ReadLine();
-    while (pathchoice9 != "1" && pathchoice9 != "2")
-    {
-    pathchoice9 = Console.ReadLine();
     }
 }
 

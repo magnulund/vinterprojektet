@@ -594,10 +594,36 @@ while (true)
 
 
         }
-        if (vendor == "2")
+        print("You keep walking going further along the road untill you come to a crossing");
+        print("Do you go left or right?");
+        print("1. Left");
+        print("2. Right");
+        string walkchoice = Console.ReadLine();
+        while (walkchoice != "1" && walkchoice != "2")
         {
-            
+            print("1. Left");
+            print("2. Right");
+            walkchoice = Console.ReadLine();
         }
+        if (walkchoice == "1")
+        {
+            print("You go left only to stumble into a dead end");
+            print("So you go back and walk right instead");
+            walkchoice = "2";
+        }
+        if (walkchoice == "2")
+        {
+            print("You walk right and go on for a while till you see a town square");
+            print("People are looking up to the sky");
+            Console.Write("Random citizen: ");print("AHHHHHHHH!!!!!!");
+            print("A dragon flies past and goes toward the castle in the center of the town.");
+            print("BOOOM!!!!");
+            print("The town turned to a fiery blaze the castle flying to bits in the sky and people screaming everywhere");
+            print("You get hit by a rock flying toward you");
+            print("You fall to the ground and lay unconscious for a few hours");
+            print("You wake up to find the town still in flames guards running around and loud screams from the townspeople.");
+        }
+
     }
 
     string pathchoice2 = Console.ReadLine();

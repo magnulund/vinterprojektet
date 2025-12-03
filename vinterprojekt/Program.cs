@@ -9,8 +9,7 @@
 
 
 
-using System.ComponentModel;
-using System.IO.Pipes;
+
 using System.Text.RegularExpressions;
 
 
@@ -434,7 +433,7 @@ while (true)
                 print("You hear bells sounding and people screaming and the ground starts shaking as a squadron of soldiers approach the gate you stand at.");
                 print("You have only a few seconds before they arrive and kill you");
                 print("But what can you do its not like you have any move for this...");
-                print("BUT WAIT the new ability you aquired we wont know unless we try");
+                print("BUT WAIT the new ability you aquired... we wont know unless we try");
                 print("1. Use it");
                 print("2. Accept ur fate and die");
                 string winchoice1 = Console.ReadLine();
@@ -623,6 +622,7 @@ while (true)
             print("You fall to the ground and lay unconscious for a few hours");
             print("You wake up to find the town still in flames guards running around and loud screams from the townspeople.");
         }
+        
 
     }
 

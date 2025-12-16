@@ -12,7 +12,6 @@
 
 using System.Text.RegularExpressions;
 
-
 int Sleep = 75;
 string print (string print)
 {
@@ -34,6 +33,10 @@ string print (string print)
     Sleep = 75;
     return print;
 }
+
+
+
+
 string restart = "";
 //Här är introt till spelet.
 
@@ -343,7 +346,7 @@ while (true)
                     ["SwordStrike"] = Random.Shared.Next(25, 30),
                     ["Heavyslash"] = Random.Shared.Next(35, 38)
                 };
-
+                
                 List<int> playerhitchances = [25, 50, 60];
                 List<int> guardhitchances = [50, 25, 65];
 
@@ -550,7 +553,8 @@ while (true)
             print("2. Keep walking");
             vendor = Console.ReadLine();
         }
-        if(vendor == "1")
+        int playercoins = 25;
+        while(vendor == "1")
         {
             Dictionary<string, int> shop = new()
             {
@@ -558,7 +562,7 @@ while (true)
               ["Shield"] = 15,
               ["Mysterious box"] = 2  
             };
-            int playercoins = 25;
+
             Console.Write("Vendor: ");print("Hello there sir what would you like to buy");
             print("Stock:");
             for (int i = 0; i<shop.Count; i++)
@@ -581,15 +585,32 @@ while (true)
             }
             int.TryParse(buy, out int buyint);
 
-            KeyValuePair<string, int> shopprice = shop.ElementAt(buyint);
-            if(buy == "1"|| buy == "2"|| buy == "3" && playercoins >= shopprice.Value)
+            KeyValuePair<string, int> shopprice = shop.ElementAt(buyint - 1);
+            if (playercoins < shopprice.Value)
+            {
+                Console.Write("Vendor: ");print("Dont got the money means no more shopping");
+                Console.Write("Vendor: ");print("Now scram, i have other customers");
+                vendor = "2";
+            }
+            if((buy == "1"|| buy == "2"|| buy == "3") && playercoins >= shopprice.Value)
             {
                 Console.Write("Vendor: ");print($"Ah, you want the {shopprice.Key} ");
                 Console.Write("You: ");print("Yes i do");
                 print($"You hand the man {shopprice.Value} coins");
                 playercoins -= shopprice.Value;
                 print($"You now have {playercoins} coins left");
+                Console.Write("Vendor: "); print("Anything else");
+                print("1. Keep shopping");
+                print("2. Walk further along the path");
+                vendor = Console.ReadLine();
+                while(vendor != "1" && vendor != "2")
+                {
+                    print("1. Keep shopping");
+                    print("2. Walk further along the path");
+                    vendor = Console.ReadLine();
+                }
             }
+            
 
 
         }
@@ -621,10 +642,32 @@ while (true)
             print("You get hit by a rock flying toward you");
             print("You fall to the ground and lay unconscious for a few hours");
             print("You wake up to find the town still in flames guards running around and loud screams from the townspeople.");
+            print("You start running somewhere you dont know where you are yet but you see an open area");
+            print("You find a sword laying on the ground probably from a vendor");
+            print("Do you pick it up?");
+            print("1. Pick it up");
+            print("2. Leave it");
+            string swordchoice = Console.ReadLine();
+            while(swordchoice != "1" && swordchoice != "2")
+            {
+                print("1. Pick it up");
+                print("2. Leave it");
+            }
+            if(swordchoice == "1")
+            {
+                print("You pick up the sword");
+                    Dictionary<string, int> playermoves = new()
+    {
+        ["Punch"] = Random.Shared.Next(9, 13),
+        ["Kick"] = Random.Shared.Next(15, 19),
+        ["Tackle"] = Random.Shared.Next(20, 25)
+    };
+            }
         }
         
 
     }
+
 
     string pathchoice2 = Console.ReadLine();
     while (pathchoice2 != "1" && pathchoice2 != "2")
@@ -643,5 +686,6 @@ while (true)
     {
         pathchoice4 = Console.ReadLine();
     }
+
 }
 

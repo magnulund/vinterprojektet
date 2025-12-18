@@ -9,10 +9,19 @@
 
 
 
+    //while (Console.KeyAvailable)
+    //{
+        //Console.Write("");
+        //if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+        //{ 
+        //    break;
+      //  }   
+    //}
+
 
 using System.Text.RegularExpressions;
 
-int Sleep = 75;
+int Sleep = 25;
 string print (string print)
 {
 
@@ -30,8 +39,9 @@ string print (string print)
         }
     }
     Console.WriteLine("");
-    Sleep = 75;
+    Sleep = 25;
     return print;
+
 }
 
 
@@ -656,18 +666,38 @@ while (true)
             if(swordchoice == "1")
             {
                 print("You pick up the sword");
-                    Dictionary<string, int> playermoves = new()
-    {
-        ["Punch"] = Random.Shared.Next(9, 13),
-        ["Kick"] = Random.Shared.Next(15, 19),
-        ["Tackle"] = Random.Shared.Next(20, 25)
-    };
+                Dictionary<string, int> playermoves = new()
+                {
+                    ["Flash step"] = Random.Shared.Next(15, 18),
+                    ["Sword SLash"] = Random.Shared.Next(20, 27),
+                    ["Overhead slash"] = Random.Shared.Next(30, 38),
+                    ["Tackle"] = Random.Shared.Next(20, 25)
+                };
+                List<int> hitchances = [0, 12, 25, 45];
+                print("You feel a surge of power running through your veins");
+                print("");
+
             }
         }
         
 
     }
-
+    if (pathchoice1 == "2")
+    {
+        print("You start walking along the right path");
+        print("The road starts getting narrower and narrower homeless people all around laying on the ground.");
+        print("You see in an alley that some thugs are harrasing someone");
+        print("Do you go to help or do you go past");
+        print("1. Help the person");
+        print("2. Walk past");
+        string helpchoice = Console.ReadLine();
+        while (helpchoice != "1" && helpchoice != "2")
+        print("Right");
+    }
+    if (pathchoice1 == "3")
+    {
+        print("Forward");
+    }
 
     string pathchoice2 = Console.ReadLine();
     while (pathchoice2 != "1" && pathchoice2 != "2")

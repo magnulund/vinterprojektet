@@ -9,25 +9,27 @@
 
 
 
-    //while (Console.KeyAvailable)
-    //{
-        //Console.Write("");
-        //if (Console.ReadKey(true).Key == ConsoleKey.Enter)
-        //{ 
-        //    break;
-      //  }   
-    //}
+//while (Console.KeyAvailable)
+//{
+//Console.Write("");
+//if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+//{ 
+//    break;
+//  }   
+//}
 
 
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 
 int Sleep = 25;
-string print (string print)
+string print (string printer)
 {
 
-    for (int i = 0; i <print.Length; i++)
+    for (int i = 0; i <printer.Length; i++)
     {
-        Console.Write(print[i]);
+        Console.Write(printer[i]);
         Thread.Sleep(Sleep);
         
         if (Console.KeyAvailable)
@@ -40,7 +42,7 @@ string print (string print)
     }
     Console.WriteLine("");
     Sleep = 25;
-    return print;
+    return printer;
 
 }
 
@@ -134,6 +136,7 @@ while (true)
         }
         return true;
     }
+    
     //kollar om namnet är en viss längd och om det inte har några konstiga täcken.
     while (playername.Length< 3 || playername.Length> 20 || contains == true || !listan(playername))
     {
@@ -513,6 +516,11 @@ while (true)
         {
             Console.Write("You:"); print("gulp* RUN!!!!!!!!!!!!");
             print("You run away from the frog");
+            print("You run along a pathway and cath up to the man you were talking to.");
+            print("He leads you to a city that he calls galmingdor.");
+            print("He tells you to go along in to the city before him.");
+            print("And than he goes up to the guard and tells him that you are a friend of his.");
+            print("You head through the gate on the wall of the city.");
         }
 
     }
@@ -692,6 +700,45 @@ while (true)
         print("2. Walk past");
         string helpchoice = Console.ReadLine();
         while (helpchoice != "1" && helpchoice != "2")
+        {
+            helpchoice = Console.ReadLine();
+        }
+        if (helpchoice == "1")
+        {
+            print("You go over to help the person");
+            Console.Write("Thug 1; ");print("HEY GIVE US ALL YOUR MONEY PALL");
+            Console.Write("Mysterious person; ");print("I already gave you everthing");
+            Console.Write("Thug 2; ");print("HEY YOU THERE, move along");
+            Console.Write("You; ");print("Sorry that aint happening pall now stop harrasing this person or ill call the guards");
+            Console.Write("Thug 2; ");print("Alright well leave for now");
+            print("They start leaving and the mysterious person starts getting up from the ground.");
+            Console.Write("Mysterious person; ");print("Thank you sir what do i owe you");
+            Console.Write("You; ");print("Nothing really i just wanted to help out");
+            Console.Write("Mysterious person; ");print("Atleast tell me your name, my name is Alfina");
+            Console.Write("You; "); print($"My name is {playername}");
+            Console.Write("Alfina; ");print($"{playername} i would like to accompany you for a while if you are okay with it");
+
+            print("1. Let her accompany you");
+            print("2. Decline her offer");
+            string companionchoice = Console.ReadLine();
+            while (companionchoice != "1" && companionchoice != "2")
+            {
+                print("1. Let her accompany you");
+                print("2. Decline her offer");
+                companionchoice = Console.ReadLine();
+            }
+            if (companionchoice == "1")
+            {
+                Console.Write("You; ");print("Fine com along then");
+            }
+            if(companionchoice == "2")
+            {
+                Console.Write("You; ");print("No sorry i have plans");
+                Console.Write("Alfina; ");print("Just one day and i will be happy");
+                Console.Write("You; ");print("Fine but only one day");
+                Console.Write("Alfina; ");print("");
+            }
+        }
         print("Right");
     }
     if (pathchoice1 == "3")

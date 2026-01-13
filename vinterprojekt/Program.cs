@@ -19,8 +19,8 @@
 //}
 
 
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
+
+using System.IO.Compression;
 using System.Text.RegularExpressions;
 
 int Sleep = 25;
@@ -596,8 +596,7 @@ while (true)
                 for (int i = 0; i<shop.Count; i++)
                 {
                     KeyValuePair<string, int> shopping = shop.ElementAt(i);
-                    print($"{i+ 1}. {shopping.Key}, [{shopping.Value} coins]");    
-
+                    print($"{i+ 1}. {shopping.Key}, [{shopping.Value} coins]");
                 }
                 buy = Console.ReadLine();
             }
@@ -690,6 +689,7 @@ while (true)
         
 
     }
+    string companionchoice = Console.ReadLine();
     if (pathchoice1 == "2")
     {
         print("You start walking along the right path");
@@ -720,7 +720,7 @@ while (true)
 
             print("1. Let her accompany you");
             print("2. Decline her offer");
-            string companionchoice = Console.ReadLine();
+
             while (companionchoice != "1" && companionchoice != "2")
             {
                 print("1. Let her accompany you");
@@ -736,8 +736,32 @@ while (true)
                 Console.Write("You; ");print("No sorry i have plans");
                 Console.Write("Alfina; ");print("Just one day and i will be happy");
                 Console.Write("You; ");print("Fine but only one day");
-                Console.Write("Alfina; ");print("");
+                Console.Write("Alfina; ");print("Yay, where are we going?");
             }
+
+        }
+        if (helpchoice == "2")
+        {
+            print("You walk past the alleyway and hear screaming behind you");
+            print("The thugs are running out of there and you start walking a bit faster");
+            print("A voice starts coming out of the alley and they seem to be looking for something or maybe someone.");
+            Console.Write("Mysterious person: ");print("Hey you there!");
+            print("You start walking just a bit faster and the voice seems to be coming closer");
+            Console.Write("Mysterious person: ");print("You dont walk away from me, HEY!");
+            print("You freeze as if you cant walk anymore someone is stopping you from walking.");
+            print("You feel a hand on your shoulder");
+            Console.Write("Mysterious person: ");print("You there, why were you trying to run away from me?");
+            Console.Write("You: ");print("What??, i would never i was just hurrying to see my friend");
+            Console.Write("Mysterious person: ");print("oooohhh, so you are saying you werent walking faster when i called out to you?");
+            Console.Write("You: ");print("Yeah thats what i am saying i thought you were calling on someone else...");
+            Console.Write("Mysterious person: ");print("There is absolutely no one else here right now...");
+            Console.Write("Mysterious person: ");print("I think your gonna have to come with me now im taking you to my place.....");
+            Console.Write("You: ");print("Do I have a choice? ");
+            Console.Write("Mysterious person: ");print("No... you dont have a choice in this...");
+            print("You try and run but your body is still frozen and the mysterious person knocks you out.");
+            print("You wake up a few hours later in a cell with iron bars.");
+            Console.Write("Mysterious person: ");print("Finally woke up have we?");
+            Console.Write("You: ");print("");            
         }
         print("Right");
     }

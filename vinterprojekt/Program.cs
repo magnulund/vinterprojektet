@@ -20,9 +20,9 @@
 
 
 
-
 using System.Text.RegularExpressions;
 
+//Fight.DoTheFight();
 int Sleep = 25;
 string print (string printer)
 {
@@ -215,82 +215,26 @@ while (true)
         Console.Write("Frog: "); print("ribbit*");
         Console.Write("Frog");print($" {Giantfroghealth}");
         Console.Write(playername); print($" {Playerhealth}");
-        while (Playerhealth >= 0 && Giantfroghealth >= 0)
+        Dictionary<string, int> frogmoves = new ()
         {
-            Dictionary<string, int> frogmoves = new ()
-            {
-                ["Lick"] = Random.Shared.Next(5, 7),
-                ["Groundslam"] = Random.Shared.Next(10, 13),
-                ["Swallow"] = Random.Shared.Next(15, 18)
-            };
-            Dictionary<string, int> playermoves = new()
-            {
-                ["Punch"] = Random.Shared.Next(9, 13),
-                ["Kick"] = Random.Shared.Next(15, 19)
-            };
+            ["Lick"] = Random.Shared.Next(5, 7),
+            ["Groundslam"] = Random.Shared.Next(10, 13),
+            ["Swallow"] = Random.Shared.Next(15, 18)
+        };
+        Dictionary<string, int> playermoves = new()
+        {
+            ["Punch"] = Random.Shared.Next(9, 13),
+            ["Kick"] = Random.Shared.Next(15, 19)
+        };
+        List<int> playerHitChances = [25, 50];
 
-            List<int> playerhitchances = [25, 50];
+        List<int> Froghitchances =  [25, 50, 65];
 
-            List<int> Froghitchances =  [25, 50, 65];
+        List<string> pDicValues = ["(9 - 12)", "(15 - 17)"];
+        Fight.DoTheFight(frogmoves, playermoves, playerHitChances, Froghitchances, pDicValues, Giantfroghealth, Playerhealth, playername);
 
-            string attackchoice = "0";
-            while (attackchoice != "1" && attackchoice != "2")
-            {
-                print("What attack do u use?");
-                print("1. Punch [9-12] [hitchance = 75%]");
-                print("2. Kick [15-18] [hitchance = 50%]");
-                attackchoice = Console.ReadLine();
-            }
-
-            int.TryParse(attackchoice, out int playerattackint); 
-            KeyValuePair<string, int> playerattack = playermoves.ElementAt(playerattackint-1);
-            if (attackchoice == "1" || attackchoice == "2")
-            {
-                Console.Clear();
-                print($"You use {playerattack.Key }");
-
-                int playerhitchance = Random.Shared.Next(0, 10001)/100;
-
-                if (playerhitchance >= playerhitchances[playerattackint-1])
-                {
-                print($"You deal {playerattack.Value} damage to the frog");
-                Console.Write("Frog health: ");print ($" {Giantfroghealth -= playerattack.Value}");
-                }
-                else if (playerhitchance < playerhitchances[playerattackint-1])
-                {
-                    print("You missed");
-                }
-                if (Giantfroghealth <= 0)
-                {
-                    
-                    break;
-                }
-
-                int r = Random.Shared.Next(0, frogmoves.Count);
-
-                KeyValuePair<string, int> frogattack = frogmoves.ElementAt(r);
-
-                Console.Write("Frog");print($" uses {frogattack.Key}");
-                
-                int froghitchance = Random.Shared.Next(0, 10001)/100;
-
-                if(froghitchance >= Froghitchances[r])
-                {
-                    print($"You take {frogattack.Value} damage");
-                    Playerhealth -= frogattack.Value;
-                }
-                
-                else if(froghitchance < Froghitchances[r])
-                {
-                    print("The frog misses");
-                }
-                
-
-                Console.Write("Frog health:");print($" {Giantfroghealth}");
-                Console.Write(playername); print($" {Playerhealth}");
-            }
-        }
-         if (Playerhealth <= 0)
+        
+        if (Playerhealth <= 0)
         {
             print("You died...");
             print("1. Want to restart?");
@@ -347,7 +291,7 @@ while (true)
             int guardhealth = 150;
             while (guardhealth > 0 && Playerhealth >0)
             {
-                Dictionary<string, int> playermoves = new()
+                Dictionary<string, int> playermoves2 = new()
                 {
                     ["Punch"] = Random.Shared.Next(9, 13),
                     ["Kick"] = Random.Shared.Next(15, 19),

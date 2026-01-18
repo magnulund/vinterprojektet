@@ -1,71 +1,110 @@
 
-public class Fight
-{
-    public static void DoTheFight(Dictionary<string, int> enemyattack,Dictionary<string, int> playerattack, 
-    List<int> playerHitChances, List<int> enemyhitchances, List<string>pDicValues,
-    int enemyhealth, int Playerhealth, string playername)
-    {
+using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
 
-        while(Playerhealth >= 0 && enemyhealth >= 0)
+public class Fight(
+    string enemyName, int enemyHealth, List<Attack> enemyAttacks, 
+    string playerName, int playerHealth, List<Attack> playerAttacks
+    )
+{
+    private readonly List<Attack> enemyAttacks = enemyAttacks;
+    private readonly List<Attack> playerAttacks = playerAttacks;
+    private int enemyHealth = enemyHealth;
+    private int playerHealth = playerHealth;
+    private readonly string playerName = playerName;
+    private readonly string enemyName = enemyName;
+
+    public void DoTheFight()
+    {
+        while(playerHealth >= 0 && enemyHealth >= 0)
         {
-            
+            static string print (string printer)
+            {
+                int Sleep = 25;
+                for (int i = 0; i <printer.Length; i++)
+                {
+                    Console.Write(printer[i]);
+                    Thread.Sleep(Sleep);
+                    
+                    if (Console.KeyAvailable)
+                    {
+                        if (Console.ReadKey(true).Key == ConsoleKey.Spacebar)
+                        { 
+                            Sleep = 0;
+                        }   
+                    }
+                }
+                Console.WriteLine("");
+                return printer;
+
+            }
+
             string attackchoice = "0";
             while (attackchoice != "1" && attackchoice != "2")
             {
-                Console.WriteLine("What attack do u use?");
-                for (int i = 0; i < playerattack.Count; i++)
+                print("What attack do u use?");
+                int i = 1;
+                foreach (Attack a in playerAttacks)
                 {
-                    KeyValuePair<string, int> playerdictionary = playerattack.ElementAt(i);
-                    Console.WriteLine($"{i+1} {playerdictionary.Key} {pDicValues.ElementAt(i)} [hitchance = {100 - playerHitChances.ElementAt(i)}]"); 
+                    print($"{i} {a.Name} ({a.MinDmg}-{a.MaxDmg}) [hitchance = {100 - a.HitChance}]");
+                    i++;
                 };
                 attackchoice = Console.ReadLine();
             }
 
             int.TryParse(attackchoice, out int playerattackint); 
-            KeyValuePair<string, int> playerattack1 = playerattack.ElementAt(playerattackint-1);
-            if (attackchoice == "1" || attackchoice == "2")
+            Attack attack = playerAttacks[playerattackint-1];
+            if (attack is not null)
             {
                 Console.Clear();
-                Console.WriteLine($"You use {playerattack1.Key }");
+                print($"You use {attack.Name}");
 
                 int playerhitchance = Random.Shared.Next(0, 10001)/100;
 
-                if (playerhitchance >= playerHitChances[playerattackint-1])
+                if (playerhitchance >= attack.HitChance)
                 {
-                Console.WriteLine($"You deal {playerattack1.Value} damage to the frog");
-                Console.Write("Frog health: ");Console.WriteLine ($" {enemyhealth -= playerattack1.Value}");
+                    int damage = Random.Shared.Next(attack.MinDmg, attack.MaxDmg);
+                    enemyHealth = (damage < enemyHealth) ? enemyHealth -= damage : 0;
+
+                    print($"You deal {damage} damage to the {enemyName}");
+                    Console.Write($"{enemyName} health: ");
+                    print($" {enemyHealth}");
                 }
-                else if (playerhitchance < playerHitChances[playerattackint-1])
+                else
                 {
-                    Console.WriteLine("You missed");
+                    print("You missed");
                 }
-                if (enemyhealth <= 0)
+
+                if (enemyHealth <= 0)
                 {
+
+
+                    print($"\n You defeated {enemyName}! \n"); 
+
                     break;
                 }
 
-                int r = Random.Shared.Next(0, enemyattack.Count);
+                int enemyChoice = Random.Shared.Next(0, enemyAttacks.Count);
 
-                KeyValuePair<string, int> frogattack = enemyattack.ElementAt(r);
+                Attack enemyAttack = enemyAttacks[enemyChoice];
 
-                Console.Write("Frog");Console.WriteLine($" uses {frogattack.Key}");
+                Console.Write(enemyName);print($" uses {enemyAttack.Name}");
                 
-                int froghitchance = Random.Shared.Next(0, 10001)/100;
+                int enemyHitChance = Random.Shared.Next(0, 10001)/100;
 
-                if(froghitchance >= enemyhitchances[r])
+                if(enemyHitChance >= enemyAttack.HitChance)
                 {
-                    Console.WriteLine($"You take {frogattack.Value} damage");
-                    Playerhealth -= frogattack.Value;
+                    int damage = Random.Shared.Next(enemyAttack.MinDmg, enemyAttack.MaxDmg);
+                    playerHealth = (damage < playerHealth) ? playerHealth -= damage : 0;
+                    print($"You take {damage} damage");
                 }
-                
-                else if(froghitchance < enemyhitchances[r])
+                else
                 {
-                    Console.WriteLine("The frog misses");
+                    print($"The {enemyName} misses");
                 }
-                
 
-                Console.Write("Frog health:");Console.WriteLine($" {enemyhealth}");
-                Console.Write(playername); Console.WriteLine($" {Playerhealth}");
+                Console.Write($"{enemyName} health:");print($" {enemyHealth}");
+                Console.Write(playerName); print($" {playerHealth}");
             }
         }
 

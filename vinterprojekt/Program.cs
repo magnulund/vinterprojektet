@@ -26,7 +26,7 @@ using System.Text.RegularExpressions;
 int Sleep = 25;
 string print (string printer)
 {
-
+    
     for (int i = 0; i <printer.Length; i++)
     {
         Console.Write(printer[i]);
@@ -45,8 +45,6 @@ string print (string printer)
     return printer;
 
 }
-
-
 
 
 string restart = "";
@@ -117,12 +115,12 @@ while (true)
     }
     Console.Write("Mysterious man:");print(" What is your name sir?");
     //namnet som spelaren måste välja.
-    string playername;
+    string playerName;
     Console.Write("You:");print(" My name is ");  
-    playername = Console.ReadLine();
+    playerName = Console.ReadLine();
 
     //fick hjälp med denna bit{ 
-    var contains = Regex.IsMatch(playername, @"[^\w]");
+    var contains = Regex.IsMatch(playerName, @"[^\w]");
     // }
     List<string> numbers = ["1", "2", "3" ,"4", "5", "6", "7", "8", "8", "9"]; 
     bool listan(string str)
@@ -138,27 +136,27 @@ while (true)
     }
     
     //kollar om namnet är en viss längd och om det inte har några konstiga täcken.
-    while (playername.Length< 3 || playername.Length> 20 || contains == true || !listan(playername))
+    while (playerName.Length< 3 || playerName.Length> 20 || contains == true || !listan(playerName))
     {
-        if (playername.Length< 3 || playername.Length> 20)
+        if (playerName.Length< 3 || playerName.Length> 20)
         {
             Console.Clear();
             print("The name has to be between 3 and 20 letters!"); 
-            playername = Console.ReadLine();
+            playerName = Console.ReadLine();
         }
-        if (contains == true || listan(playername) == false)
+        if (contains == true || listan(playerName) == false)
         {
             Console.Clear();
             print("The name can only contain standard letters!");
-            playername = Console.ReadLine();
-            contains = Regex.IsMatch(playername, @"[^\w]");
+            playerName = Console.ReadLine();
+            contains = Regex.IsMatch(playerName, @"[^\w]");
         }       
     
     }
     Console.Clear();
-    Console.Write("You:");print($"My name is {playername}");
+    Console.Write("You:");print($"My name is {playerName}");
     Thread.Sleep(500);
-    Console.Write("Mysterious man:");Thread.Sleep(100);print($" What a strange name, say where are you from sir {playername}?");
+    Console.Write("Mysterious man:");Thread.Sleep(100);print($" What a strange name, say where are you from sir {playerName}?");
     print("1. Tell him youre from another world?");
     print("2. Tell him you don't know?");
     string homeplace = Console.ReadLine();
@@ -179,14 +177,14 @@ while (true)
         Console.Write("You:");print(" i dont know.");
         Console.Write("Mysterious man:");print(" How strange... well would you like to follow me back to my home?");
     }
-    int Playerhealth = 75;
-    if (playername.Length >= 14)
+    int playerHealth = 75;
+    if (playerName.Length >= 14)
     {
-        Playerhealth = 50;
+        playerHealth = 50;
     }
-    if (playername.Length <= 6)
+    if (playerName.Length <= 6)
     {
-        Playerhealth = 100;
+        playerHealth = 100;
     }
     print("1. Go home with the kind man?");
     print("2. Walk along a different road and try to find your own way");
@@ -211,30 +209,54 @@ while (true)
     }
     if (giantfrogchoice1 == "1")
     {
-        int Giantfroghealth = 50;
-        Console.Write("Frog: "); print("ribbit*");
-        Console.Write("Frog");print($" {Giantfroghealth}");
-        Console.Write(playername); print($" {Playerhealth}");
-        Dictionary<string, int> frogmoves = new ()
-        {
-            ["Lick"] = Random.Shared.Next(5, 7),
-            ["Groundslam"] = Random.Shared.Next(10, 13),
-            ["Swallow"] = Random.Shared.Next(15, 18)
-        };
-        Dictionary<string, int> playermoves = new()
-        {
-            ["Punch"] = Random.Shared.Next(9, 13),
-            ["Kick"] = Random.Shared.Next(15, 19)
-        };
-        List<int> playerHitChances = [25, 50];
+        int giantFrogHealth = 50;
+        Mob giantFrog = new Mob(
+            name: "Giant Frog",
+            50,
+            [
+                new Attack(
+                    name: "Lick",
+                    minDmg: 5,
+                    maxDmg: 7,
+                    hitChance: 75
+                ),
+                new Attack(
+                    name: "Groundslam",
+                    minDmg: 10,
+                    maxDmg: 13,
+                    hitChance: 50
+                ),
+                new Attack(
+                    name: "Swallow",
+                    minDmg: 15,
+                    maxDmg: 18,
+                    hitChance: 35
+                ),
+            ]
+        );
+        Console.Write($"{giantFrog.Name}: "); print("ribbit*");
+        Console.Write($"{giantFrog.Name}");print($" {giantFrog.Health}");
+        Console.Write(playerName); print($" {playerHealth}");
+        List<Attack> playerAttacks = [
+            new Attack(
+                name: "Punch",
+                minDmg: 9,
+                maxDmg: 13,
+                hitChance: 75
+            ),
+            new Attack(
+                name: "Kick",
+                minDmg: 15,
+                maxDmg: 19,
+                hitChance: 50
+            ),
+        ];
 
-        List<int> Froghitchances =  [25, 50, 65];
-
-        List<string> pDicValues = ["(9 - 12)", "(15 - 17)"];
-        Fight.DoTheFight(frogmoves, playermoves, playerHitChances, Froghitchances, pDicValues, Giantfroghealth, Playerhealth, playername);
+        Fight frogFight = new Fight(giantFrog.Name, giantFrog.Health, giantFrog.Attacks, playerName, playerHealth, playerAttacks);
+        frogFight.DoTheFight();
 
         
-        if (Playerhealth <= 0)
+        if (playerHealth <= 0)
         {
             print("You died...");
             print("1. Want to restart?");
@@ -256,7 +278,7 @@ while (true)
             }
             
         }
-        if (Giantfroghealth <= 0)
+        if (giantFrogHealth <= 0)
         {
             print("You won your first fight YAY!!!");
             print("New move aquired (tackle)");
@@ -269,7 +291,7 @@ while (true)
         print("At the city gate a guard is standing on duty");
         print("You approach");
         Console.Write("Guard: "); print("HALT! Who are you? and what is your purpose in galmingdor");   
-        Console.Write("You: ");print($"i am {playername}");
+        Console.Write("You: ");print($"i am {playerName}");
         print("1. My purpose here is to destroy the place muahhahahah");
         print("2. My purpose here is to gather information about this world");
         print("3. I do not yet know my purpose here but i am sure i will find out");
@@ -282,6 +304,9 @@ while (true)
             print("3. I do not yet know my purpose here but i am sure i will find out");
             purpose = Console.ReadLine();
         }
+
+
+
         if (purpose == "1")
         {
             Console.Write("You: ");print("My purpose is to destroy this place muahhahaha you shall kneel to me!!!");
@@ -289,9 +314,9 @@ while (true)
             print("The guard attacks you");
 
             int guardhealth = 150;
-            while (guardhealth > 0 && Playerhealth >0)
+            while (guardhealth > 0 && playerHealth >0)
             {
-                Dictionary<string, int> playermoves2 = new()
+                Dictionary<string, int> playermoves = new()
                 {
                     ["Punch"] = Random.Shared.Next(9, 13),
                     ["Kick"] = Random.Shared.Next(15, 19),
@@ -352,7 +377,7 @@ while (true)
                     if(guardhitchance >= guardhitchances[r])
                     {
                         print($"You take {guardattack.Value} damage");
-                        Playerhealth -= guardattack.Value;
+                        playerHealth -= guardattack.Value;
                     }
                 
                     else if(guardhitchance < guardhitchances[r])
@@ -360,11 +385,11 @@ while (true)
                         print("The guard misses");
                     }
                     Console.Write("Guard health:");print($" {guardhealth}");
-                    Console.Write(playername); print($" {Playerhealth}");
+                    Console.Write(playerName); print($" {playerHealth}");
                 }
             }
 
-            if (Playerhealth <= 0)
+            if (playerHealth <= 0)
             {
                 print("You lose!");
             
@@ -485,7 +510,7 @@ while (true)
         print("At the city gate the man speaks with the guard and than calls to you");
         Console.Write("Mysterious Man: ");print("Come here! we can get through now and ill show you the city");
         Console.Write("???: "); print("hey Ingur come here i need help with something");
-        Console.Write("Ingur: ");print($"Well i have to go {playername} see you later, sorry i couldn't show you around");
+        Console.Write("Ingur: ");print($"Well i have to go {playerName} see you later, sorry i couldn't show you around");
 
     }
 
@@ -659,8 +684,8 @@ while (true)
             Console.Write("Mysterious person; ");print("Thank you sir what do i owe you");
             Console.Write("You; ");print("Nothing really i just wanted to help out");
             Console.Write("Mysterious person; ");print("Atleast tell me your name, my name is Alfina");
-            Console.Write("You; "); print($"My name is {playername}");
-            Console.Write("Alfina; ");print($"{playername} i would like to accompany you for a while if you are okay with it");
+            Console.Write("You; "); print($"My name is {playerName}");
+            Console.Write("Alfina; ");print($"{playerName} i would like to accompany you for a while if you are okay with it");
 
             print("1. Let her accompany you");
             print("2. Decline her offer");

@@ -1,6 +1,5 @@
 
-using System.Net.Mail;
-using System.Security.Cryptography.X509Certificates;
+
 
 public class Fight(
     string enemyName, int enemyHealth, List<Attack> enemyAttacks, 
@@ -39,8 +38,10 @@ public class Fight(
 
             }
 
+
+
             string attackchoice = "0";
-            while (attackchoice != "1" && attackchoice != "2")
+            while (attackchoice != $"{playerAttacks.Count}"&& attackchoice != "1" && attackchoice != "2")
             {
                 print("What attack do u use?");
                 int i = 1;
@@ -61,7 +62,7 @@ public class Fight(
 
                 int playerhitchance = Random.Shared.Next(0, 10001)/100;
 
-                if (playerhitchance >= attack.HitChance)
+                if (playerhitchance <= attack.HitChance)
                 {
                     int damage = Random.Shared.Next(attack.MinDmg, attack.MaxDmg);
                     enemyHealth = (damage < enemyHealth) ? enemyHealth -= damage : 0;
@@ -105,6 +106,10 @@ public class Fight(
 
                 Console.Write($"{enemyName} health:");print($" {enemyHealth}");
                 Console.Write(playerName); print($" {playerHealth}");
+                if (playerHealth <= 0)
+                {
+                    break;
+                }
             }
         }
 

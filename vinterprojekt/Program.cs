@@ -19,7 +19,6 @@
 //}
 
 
-
 using System.Text.RegularExpressions;
 
 //Fight.DoTheFight();
@@ -47,7 +46,7 @@ string print (string printer)
 }
 
 
-string restart = "";
+string restartChoice = "";
 //Här är introt till spelet.
 
 while (true)
@@ -256,28 +255,8 @@ while (true)
         frogFight.DoTheFight();
 
         
-        if (playerHealth <= 0)
-        {
-            print("You died...");
-            print("1. Want to restart?");
-            print("2. Want to quit?");
-            restart = Console.ReadLine();
-            while (restart != "1" && restart != "2")
-            {
-                print("1. Want to restart?");
-                print("2. Want to quit?");
-                restart = Console.ReadLine();
-            }
-            if( restart == "2")
-            {
-                break;           
-            } 
-            if(restart == "1")
-            {
-                continue;
-            }
+
             
-        }
         if (giantFrogHealth <= 0)
         {
             print("You won your first fight YAY!!!");
@@ -313,81 +292,42 @@ while (true)
             Console.Write("Guard: ");print("Than ill kill you now to stop you villain.");
             print("The guard attacks you");
 
-            int guardhealth = 150;
-            while (guardhealth > 0 && playerHealth >0)
-            {
-                Dictionary<string, int> playermoves = new()
-                {
-                    ["Punch"] = Random.Shared.Next(9, 13),
-                    ["Kick"] = Random.Shared.Next(15, 19),
-                    ["Tackle"] = Random.Shared.Next(20, 25)
-                };
-                Dictionary<string, int> guardmoves = new()
-                {
-                    ["Shieldbash"] = Random.Shared.Next(20, 23),
-                    ["SwordStrike"] = Random.Shared.Next(25, 30),
-                    ["Heavyslash"] = Random.Shared.Next(35, 38)
-                };
-                
-                List<int> playerhitchances = [25, 50, 60];
-                List<int> guardhitchances = [50, 25, 65];
-
-                string attackchoice = "0";
-                while (attackchoice != "1" && attackchoice != "2" && attackchoice != "3")
-                {
-                    print("What attack do u use?");
-                    print("1. Punch [9-12] [hitchance = 75%]");
-                    print("2. Kick [15-18] [hitchance = 50%]" );
-                    print("3. Tackle [20, 24] [hitchance = 40%]");
-
-                    attackchoice = Console.ReadLine();
-                }
-
-                int.TryParse(attackchoice, out int playerattackint); 
-                KeyValuePair<string, int> playerattack = playermoves.ElementAt(playerattackint-1);
-                if (attackchoice == "1" || attackchoice == "2" || attackchoice == "3")
-                {
-                    Console.Clear();
-                    print($"You use {playerattack.Key}");
-
-                    int playerhitchance = Random.Shared.Next(0, 10001)/100;
 
 
-                    if (playerhitchance >= playerhitchances[playerattackint-1])
-                    {
-                        print($"You deal {playerattack.Value} damage to the guard");
-                        Console.Write("Guard health: ");print ($" {guardhealth -= playerattack.Value}");
-                    }
-                    else if (playerhitchance < playerhitchances[playerattackint-1])
-                    {
-                        print("You missed");
-                    }
-                    if (guardhealth <= 0)
-                    {
+            Mob Guard = new Mob(
+                name: "Guard",
+                120,
+                [
+                    new Attack(
+                        name: "Shieldbash",
+                        minDmg: 20,
+                        maxDmg: 23,
+                        hitChance: 50
+                    ),
+                    new Attack(
+                        name: "SwordStrike",
+                        minDmg: 25,
+                        maxDmg: 30,
+                        hitChance: 75
+                    ),
                     
-                        break;
-                    }
+                    new Attack(
+                        name: "Heabyslash",
+                        minDmg: 35,
+                        maxDmg: 38,
+                        hitChance: 35
+                    )
+                ]
+            );
+            playerAttacks.Add(new Attack(
+                name: "Tackle",
+                minDmg: 20,
+                maxDmg: 25,
+                hitChance: 40
+            ));
+            Fight guardFight = new Fight(Guard.Name, Guard.Health, Guard.Attacks, playerName, playerHealth, playerAttacks);
+            guardFight.DoTheFight();
 
-                    int r = Random.Shared.Next(0, guardmoves.Count);
-                    KeyValuePair<string, int> guardattack = guardmoves.ElementAt(r);
-                    Console.Write("Guard");print($" uses {guardattack.Key}");
-                
-                    int guardhitchance = Random.Shared.Next(0, 10001)/100;
-
-                    if(guardhitchance >= guardhitchances[r])
-                    {
-                        print($"You take {guardattack.Value} damage");
-                        playerHealth -= guardattack.Value;
-                    }
-                
-                    else if(guardhitchance < guardhitchances[r])
-                    {
-                        print("The guard misses");
-                    }
-                    Console.Write("Guard health:");print($" {guardhealth}");
-                    Console.Write(playerName); print($" {playerHealth}");
-                }
-            }
 
             if (playerHealth <= 0)
             {
@@ -395,23 +335,25 @@ while (true)
             
                 print("1. Want to restart?");
                 print("2. Want to quit?");
-                restart = Console.ReadLine();
-            }
-            while (restart != "1" && restart != "2")
-            {
-                print("1. Want to restart?");
-                print("2. Want to quit?");
-                restart = Console.ReadLine();
-            }
-            if( restart == "2")
-            {
-                break;            
-            } 
-            if(restart == "1")
-            {
-                continue;
-            }
-            if  (guardhealth <= 0)
+                restartChoice = Console.ReadLine();
+                while (restartChoice != "1" && restartChoice != "2")
+                {
+                    print("1. Want to restart?");
+                    print("2. Want to quit?");
+                    restartChoice = Console.ReadLine();
+                }
+                if( restartChoice == "2")
+                {
+                    break;            
+                } 
+                if(restartChoice == "1")
+                {
+                    continue;
+                }
+            };
+            
+            
+            if  (Guard.Health <= 0)
             {
                 print("You somehow won you lucky bastard");
                 print("New ability aquired (Uprising)");
@@ -444,18 +386,18 @@ while (true)
                     print("Would you like to play again?");
                     print("1. Yes");
                     print("2. No");
-                    restart = Console.ReadLine();
-                    while (restart != "1" && restart != "2")
+                    restartChoice = Console.ReadLine();
+                    while (restartChoice != "1" && restartChoice != "2")
                     {
                         print("1. Want to restart?");
                         print("2. Want to quit?");
-                        restart = Console.ReadLine();
+                        restartChoice = Console.ReadLine();
                     }
-                    if( restart == "2")
+                    if( restartChoice == "2")
                     {
                         break;           
                     } 
-                    if(restart == "1")
+                    if(restartChoice == "1")
                     {
                         continue;
                     }

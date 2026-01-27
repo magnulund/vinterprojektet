@@ -21,7 +21,7 @@
 
 using System.Text.RegularExpressions;
 
-//Fight.DoTheFight();
+
 int Sleep = 25;
 string print (string printer)
 {
